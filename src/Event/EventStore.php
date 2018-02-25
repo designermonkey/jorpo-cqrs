@@ -3,7 +3,6 @@
 namespace Jorpo\Support\Cqrs\EventStore;
 
 use Jorpo\Support\Cqrs\Event\Exception\ConcurrencyException;
-use Jorpo\Support\Cqrs\Event\Exception\IdentifierNotFoundException;
 use Jorpo\Support\Cqrs\Event\EventSet;
 use Jorpo\ValueObject\Identity\Uuid;
 
