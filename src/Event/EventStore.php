@@ -1,9 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Jorpo\Support\Cqrs\EventStore;
+namespace Jorpo\Cqrs\EventStore;
 
-use Jorpo\Support\Cqrs\Event\Exception\ConcurrencyException;
-use Jorpo\Support\Cqrs\Event\EventSet;
+use Jorpo\Cqrs\Event\Exception\ConcurrencyException;
 use Jorpo\ValueObject\Identity\Uuid;
 
 interface EventStore
