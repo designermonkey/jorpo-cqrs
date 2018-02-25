@@ -20,9 +20,7 @@ abstract class QueryHandler
      */
     public function handle(Query $query): iterable
     {
-        $parts = explode('\\', get_class($query));
-        $queryName = array_pop($parts);
-        $handlerMethod = QueryHandler::HANDLER_PREFIX . ucfirst($queryName);
+        $handlerMethod = $this->getHandlerMethod($query);
 
         if (!method_exists($this, $handlerMethod)) {
             throw new BadMethodCallException(sprintf(
@@ -33,5 +31,12 @@ abstract class QueryHandler
         }
 
         return $this->{$handlerMethod}($query);
+    }
+
+    private function getHandlerMethod(Query $query): string
+    {
+        $parts = explode('\\', get_class($query));
+        $queryName = array_pop($parts);
+        return QueryHandler::HANDLER_PREFIX . ucfirst($queryName);
     }
 }
