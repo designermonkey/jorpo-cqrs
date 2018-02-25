@@ -19,18 +19,27 @@ abstract class EventListener
      */
     final public function handle(Event $event)
     {
-        $parts = explode('\\', get_class($event));
-        $eventName = array_pop($parts);
-        $handlerMethod = EventListener::LISTENER_PREFIX . ucfirst($eventName);
+        $handlerMethod = $this->getHandlerMethod($event);
 
         if (!method_exists($this, $handlerMethod)) {
-            throw new BadMethodCallException(sprintf(
-                "Event listener method '%s::%s' does not exist.",
-                get_called_class(),
-                $handlerMethod
-            ));
+            $handlerMethod = 'onEvent';
+
+            if (!method_exists($this, $handlerMethod)) {
+                throw new BadMethodCallException(sprintf(
+                    "Event listener method '%s::%s' does not exist.",
+                    get_called_class(),
+                    $handlerMethod
+                ));
+            }
         }
 
         $this->{$handlerMethod}($event);
+    }
+
+    private function getHandlerMethod(Event $event): string
+    {
+        $parts = explode('\\', get_class($event));
+        $eventName = array_pop($parts);
+        return EventListener::LISTENER_PREFIX . ucfirst($eventName);
     }
 }
