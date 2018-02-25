@@ -19,9 +19,7 @@ abstract class CommandHandler
      */
     final public function handle(Command $command): void
     {
-        $parts = explode('\\', get_class($command));
-        $commandName = array_pop($parts);
-        $handlerMethod = CommandHandler::HANDLER_PREFIX . ucfirst($commandName);
+        $handlerMethod = $this->getHandlerMethod($command);
 
         if (!method_exists($this, $handlerMethod)) {
             throw new BadMethodCallException(sprintf(
@@ -32,5 +30,12 @@ abstract class CommandHandler
         }
 
         $this->{$handlerMethod}($command);
+    }
+
+    private function getHandlerMethod(Command $command): string
+    {
+        $parts = explode('\\', get_class($command));
+        $commandName = array_pop($parts);
+        return CommandHandler::HANDLER_PREFIX . ucfirst($commandName);
     }
 }
