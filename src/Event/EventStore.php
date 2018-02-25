@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Jorpo\Cqrs\EventStore;
+namespace Jorpo\Cqrs\Event;
 
 use Jorpo\Cqrs\Event\Exception\ConcurrencyException;
 use Jorpo\ValueObject\Identity\Uuid;
