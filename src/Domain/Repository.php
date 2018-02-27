@@ -9,6 +9,11 @@ use Jorpo\ValueObject\Identity\Uuid;
 interface Repository
 {
     /**
+     * @return string
+     */
+    public function getAggregateType(): string;
+
+    /**
      * @param AggregateRoot $aggregate
      * @return void
      * @throws ConcurrencyException
