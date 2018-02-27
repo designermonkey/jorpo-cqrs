@@ -1,18 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace Jorpo\Support\Cqrs\EventSourced;
+namespace Jorpo\Cqrs\Domain;
 
-use Jorpo\Support\Cqrs\EventSourced\Exception\AggregateNotFoundException;
-use Jorpo\Support\Cqrs\EventSourced\Exception\ConcurrencyException;
-use Jorpo\Support\ValueObject\Identity\Uuid;
+use Jorpo\Cqrs\Domain\Exception\AggregateNotFoundException;
+use Jorpo\Cqrs\Domain\Exception\ConcurrencyException;
+use Jorpo\ValueObject\Identity\Uuid;
 
-interface AggregateRepository
+interface Repository
 {
     /**
      * @param AggregateRoot $aggregate
+     * @return void
      * @throws ConcurrencyException
      */
-    public function storeAggregate(AggregateRoot $aggregate);
+    public function storeAggregate(AggregateRoot $aggregate): void;
 
     /**
      * @param Uuid $aggregateId
