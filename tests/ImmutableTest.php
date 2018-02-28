@@ -38,6 +38,23 @@ class ImmutableTest extends TestCase
         $this->assertSame('badger', $stub->readOnlyProperty());
     }
 
+    public function testShouldAllowDirectSetInConstructor()
+    {
+        $stub = new ConstructorImmutableStub(
+            'mushroom',
+            'badger',
+            'snaaake'
+        );
+
+        $this->assertSame('snaaake', $stub->accessibleProperty);
+        $this->assertSame('badger', $stub->readOnlyProperty);
+        $this->assertNull($stub->hiddenProperty);
+
+        $this->assertSame('snaaake', $stub->accessibleProperty());
+        $this->assertSame('badger', $stub->readOnlyProperty());
+        $this->assertNull($stub->hiddenProperty());
+    }
+
     public function testShouldAllowCreationOfArray()
     {
         $stub = new ImmutableStub;
