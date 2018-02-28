@@ -30,6 +30,14 @@ class ImmutableTest extends TestCase
         $this->assertNull($stub->hiddenProperty);
     }
 
+    public function testShouldAllowCallAccessToPublicAndProtectedProperties()
+    {
+        $stub = new ImmutableStub;
+
+        $this->assertSame('snaaake', $stub->accessibleProperty());
+        $this->assertSame('badger', $stub->readOnlyProperty());
+    }
+
     public function testShouldAllowCreationOfArray()
     {
         $stub = new ImmutableStub;

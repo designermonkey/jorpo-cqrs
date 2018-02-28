@@ -60,6 +60,16 @@ class Immutable implements Hashable
     }
 
     /**
+     * @param string $name
+     * @param array $args
+     * @return mixed
+     */
+    final public function __call(string $name, array $args)
+    {
+        return $this->__get($name);
+    }
+
+    /**
      * No operation performed
      *
      * @param string $name
