@@ -1,4 +1,4 @@
-CQRS
+# CQRS
 
 `composer require jorpo/cqrs`
 
