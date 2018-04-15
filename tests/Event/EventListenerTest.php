@@ -2,8 +2,8 @@
 
 namespace Jorpo\Cqrs\Event;
 
-use BadMethodCallException;
 use PHPUnit\Framework\TestCase;
+use Jorpo\Cqrs\Event\Exception\EventHandlerNotFoundException;
 
 class EventListenerTest extends TestCase
 {
@@ -33,8 +33,8 @@ class EventListenerTest extends TestCase
 
     public function testShouldErrorWhenNoEventMethodExists()
     {
-        $this->expectException(BadMethodCallException::class);
-        $subject = new FakeEventListener;
+        $this->expectException(EventHandlerNotFoundException::class);
+        $subject = new FakeEventOneListener;
         $subject->handle(new FakeEventTwo());
     }
 }

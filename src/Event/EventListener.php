@@ -2,7 +2,7 @@
 
 namespace Jorpo\Cqrs\Event;
 
-use BadMethodCallException;
+use Jorpo\Cqrs\Event\Exception\EventHandlerNotFoundException;
 
 abstract class EventListener
 {
@@ -16,7 +16,7 @@ abstract class EventListener
 
     /**
      * @param Event $event
-     * @throws BadMethodCallException
+     * @throws EventHandlerNotFoundException
      */
     final public function handle(Event $event)
     {
@@ -26,7 +26,7 @@ abstract class EventListener
             $handlerMethod = self::CATCHALL_HANDLER;
 
             if (!method_exists($this, $handlerMethod)) {
-                throw new BadMethodCallException(sprintf(
+                throw new EventHandlerNotFoundException(sprintf(
                     "Event listener method '%s::%s' does not exist.",
                     get_called_class(),
                     $handlerMethod
