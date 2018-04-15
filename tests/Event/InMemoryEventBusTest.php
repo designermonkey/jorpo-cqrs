@@ -15,7 +15,6 @@ class InMemoryEventBusTest extends TestCase
 
         $this->listenerOne = new FakeEventOneListener;
         $this->listenerTwo = new FakeEventTwoListener;
-        $this->listenerThree = new FakeEventThreeListener;
     }
 
     public function testShouldRegisterListenerAndPublishEvent()

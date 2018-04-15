@@ -17,6 +17,6 @@ class FakeEventOneListener extends EventListener
     public function onFakeEventOne(): void
     {
         $this->markHandled();
-        ++ $this->callCount;
+        $this->incrementCallCount();
     }
 }

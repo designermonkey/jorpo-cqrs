@@ -9,15 +9,7 @@ class EventListenerTest extends TestCase
 {
     public function testShouldHaveEventHandlerMethod()
     {
-        $subject = new class extends EventListener
-        {
-            use EventListenerTestTrait;
-        
-            public function onFakeEventOne()
-            {
-                $this->markHandled();
-            }
-        };
+        $subject = new FakeEventOneListener;
 
         $subject->handle(new FakeEventOne());
         $this->assertTrue($subject->wasHandled());

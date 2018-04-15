@@ -14,12 +14,12 @@ class FakeEventOneTwoListener extends EventListener
     public function onFakeEventOne(): void
     {
         $this->markHandled();
-        ++ $this->callCount;
+        $this->incrementCallCount();
     }
 
     public function onFakeEventTwo(): void
     {
         $this->markHandled();
-        ++ $this->callCount;
+        $this->incrementCallCount();
     }
 }
