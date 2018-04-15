@@ -4,13 +4,15 @@ namespace Jorpo\Cqrs\Query;
 
 use BadMethodCallException;
 use PHPUnit\Framework\TestCase;
+use Jorpo\Cqrs\Query\Exception\QueryHandlerNotFoundException;
 
 class QueryHandlerTest extends TestCase
 {
     public function testShouldHandleQuery()
     {
-        $subject = new QueryHandlerDummy;
-        $result = $subject->handle(new FakeQuery([]));
+        $subject = new FakeQueryOneHandler;
+
+        $result = $subject->handle(new FakeQueryOne());
 
         $this->assertTrue($subject->wasHandled());
         $this->assertSame([], $result);
@@ -18,8 +20,8 @@ class QueryHandlerTest extends TestCase
 
     public function testShouldErrorWhenNoQueryMethodExists()
     {
-        $this->expectException(BadMethodCallException::class);
-        $subject = new QueryHandlerDummy;
-        $subject->handle(new IgnoredQuery());
+        $this->expectException(QueryHandlerNotFoundException::class);
+        $subject = new FakeQueryOneHandler;
+        $subject->handle(new FakeQueryTwo());
     }
 }

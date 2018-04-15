@@ -2,7 +2,7 @@
 
 namespace Jorpo\Cqrs\Query;
 
-use BadMethodCallException;
+use Jorpo\Cqrs\Query\Exception\QueryHandlerNotFoundException;
 
 abstract class QueryHandler
 {
@@ -16,14 +16,14 @@ abstract class QueryHandler
     /**
      * @param Query $query
      * @return iterable
-     * @throws BadMethodCallException
+     * @throws QueryHandlerNotFoundException
      */
     public function handle(Query $query): iterable
     {
         $handlerMethod = $this->getHandlerMethod($query);
 
         if (!method_exists($this, $handlerMethod)) {
-            throw new BadMethodCallException(sprintf(
+            throw new QueryHandlerNotFoundException(sprintf(
                 "Query handler method '%s::%s' does not exist.",
                 get_called_class(),
                 $handlerMethod

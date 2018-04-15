@@ -2,7 +2,7 @@
 
 namespace Jorpo\Cqrs\Query;
 
-class FakeQuery extends Query
+class FakeQueryThree extends Query
 {
     protected $badger;
     protected $mushroom;

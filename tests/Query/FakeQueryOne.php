@@ -2,7 +2,7 @@
 
 namespace Jorpo\Cqrs\Query;
 
-class IgnoredQuery extends Query
+class FakeQueryOne extends Query
 {
     protected $badger;
     protected $mushroom;
