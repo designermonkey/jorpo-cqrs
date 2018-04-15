@@ -6,33 +6,33 @@ use PHPUnit\Framework\TestCase;
 
 class CommandTest extends TestCase
 {
-    public function testShouldConstructWithProperties()
+    public function setUp()
     {
-        $subject = new FakeCommand([
+        $this->subject = new class([
             'badger' => 'mushroom',
             'mushroom' => 'badger',
-        ]);
+        ]) extends Command
+        {
+            protected $badger;
+            protected $mushroom;
+        };
+    }
 
-        $this->assertInstanceOf(Command::class, $subject);
+    public function testShouldConstructWithProperties()
+    {
+        $this->assertTrue(isset($this->subject->badger));
+        $this->assertTrue(isset($this->subject->mushroom));
 
-        $this->assertTrue(isset($subject->badger));
-        $this->assertTrue(isset($subject->mushroom));
-
-        $this->assertSame('mushroom', $subject->badger);
-        $this->assertSame('badger', $subject->mushroom);
+        $this->assertSame('mushroom', $this->subject->badger);
+        $this->assertSame('badger', $this->subject->mushroom);
     }
 
     public function testShouldHaveReadOnlyProperties()
     {
-        $subject = new FakeCommand([
-            'badger' => 'mushroom',
-            'mushroom' => 'badger',
-        ]);
+        $this->subject->badger = 'badger';
+        $this->assertSame('mushroom', $this->subject->badger);
 
-        $subject->badger = 'badger';
-        $this->assertSame('mushroom', $subject->badger);
-
-        unset($subject->mushroom);
-        $this->assertSame('badger', $subject->mushroom);
+        unset($this->subject->mushroom);
+        $this->assertSame('badger', $this->subject->mushroom);
     }
 }

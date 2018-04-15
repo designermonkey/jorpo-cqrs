@@ -3,6 +3,7 @@
 namespace Jorpo\Cqrs\Command;
 
 use BadMethodCallException;
+use Jorpo\Cqrs\Command\Exception\CommandHandlerNotFoundException;
 
 abstract class CommandHandler
 {
@@ -15,14 +16,14 @@ abstract class CommandHandler
 
     /**
      * @param Command $command
-     * @throws BadMethodCallException
+     * @throws CommandHandlerNotFoundException
      */
     final public function handle(Command $command): void
     {
         $handlerMethod = $this->getHandlerMethod($command);
 
         if (!method_exists($this, $handlerMethod)) {
-            throw new BadMethodCallException(sprintf(
+            throw new CommandHandlerNotFoundException(sprintf(
                 "Command handler method '%s::%s' does not exist.",
                 get_called_class(),
                 $handlerMethod

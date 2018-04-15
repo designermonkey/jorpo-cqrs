@@ -2,7 +2,7 @@
 
 namespace Jorpo\Cqrs\Command;
 
-class FakeCommand extends Command
+class FakeCommandTwo extends Command
 {
     protected $badger;
     protected $mushroom;
