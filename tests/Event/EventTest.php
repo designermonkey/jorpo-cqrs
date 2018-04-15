@@ -6,33 +6,39 @@ use PHPUnit\Framework\TestCase;
 
 class EventTest extends TestCase
 {
-    public function testShouldConstructWithProperties()
+    public function setUp()
     {
-        $subject = new FakeEvent([
+        $this->subject = new class([
             'badger' => 'mushroom',
             'mushroom' => 'badger',
-        ]);
+        ]) extends AbstractEvent
+        {
+            protected $badger;
+            protected $mushroom;
+        };
+    }
 
-        $this->assertInstanceOf(Event::class, $subject);
+    public function testShouldConstructWithProperties()
+    {
+        $this->assertTrue(isset($this->subject->badger));
+        $this->assertTrue(isset($this->subject->mushroom));
 
-        $this->assertTrue(isset($subject->badger));
-        $this->assertTrue(isset($subject->mushroom));
-
-        $this->assertSame('mushroom', $subject->badger);
-        $this->assertSame('badger', $subject->mushroom);
+        $this->assertSame('mushroom', $this->subject->badger);
+        $this->assertSame('badger', $this->subject->mushroom);
     }
 
     public function testShouldHaveReadOnlyProperties()
     {
-        $subject = new FakeEvent([
-            'badger' => 'mushroom',
-            'mushroom' => 'badger',
-        ]);
+        $this->subject->badger = 'badger';
+        $this->assertSame('mushroom', $this->subject->badger);
 
-        $subject->badger = 'badger';
-        $this->assertSame('mushroom', $subject->badger);
+        unset($this->subject->mushroom);
+        $this->assertSame('badger', $this->subject->mushroom);
+    }
 
-        unset($subject->mushroom);
-        $this->assertSame('badger', $subject->mushroom);
+    public function testShouldProvideEventName()
+    {
+        $this->assertSame(AbstractEvent::class, AbstractEvent::getName());
+        $this->assertSame(DummyEvent::class, DummyEvent::getName());
     }
 }

@@ -7,24 +7,42 @@ use PHPUnit\Framework\TestCase;
 
 class EventListenerTest extends TestCase
 {
-    public function testShouldHandleEvent()
+    public function testShouldHaveEventHandlerMethod()
     {
-        $subject = new EventListenerDummy;
-        $subject->handle(new FakeEvent());
+        $subject = new class extends EventListener
+        {
+            use EventListenerTestTrait;
+        
+            public function onFakeEventOne()
+            {
+                $this->markHandled();
+            }
+        };
+
+        $subject->handle(new FakeEventOne());
         $this->assertTrue($subject->wasHandled());
     }
 
-    public function testShouldFallbackToDefaultEventHandlerMethod()
+    public function testShouldFallbackToCatchAllEventHandlerMethod()
     {
-        $subject = new EventListenerDefaultMethodDummy;
-        $subject->handle(new FakeEvent());
+        $subject = new class extends EventListener
+        {
+            use EventListenerTestTrait;
+
+            public function onAnyEvent()
+            {
+                $this->markHandled();
+            }
+        };
+
+        $subject->handle(new FakeEventOne());
         $this->assertTrue($subject->wasHandled());
     }
 
     public function testShouldErrorWhenNoEventMethodExists()
     {
         $this->expectException(BadMethodCallException::class);
-        $subject = new EventListenerDummy;
-        $subject->handle(new IgnoredEvent());
+        $subject = new FakeEventListener;
+        $subject->handle(new FakeEventTwo());
     }
 }

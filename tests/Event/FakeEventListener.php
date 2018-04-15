@@ -2,9 +2,9 @@
 
 namespace Jorpo\Cqrs\Event;
 
-class EventListenerDummy extends EventListener
+class FakeEventListener extends EventListener
 {
-    private $handled = false;
+    use EventListenerTestTrait;
 
     /**
      * @return array
@@ -16,11 +16,6 @@ class EventListenerDummy extends EventListener
 
     public function onFakeEvent(Event $event)
     {
-        $this->handled = true;
-    }
-
-    public function wasHandled(): bool
-    {
-        return $this->handled;
+        $this->markHandled();
     }
 }

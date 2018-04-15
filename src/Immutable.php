@@ -9,11 +9,6 @@ use Ds\Hashable;
 class Immutable implements Hashable
 {
     /**
-     * @var ReflectionObject
-     */
-    private $reflection;
-
-    /**
      * With an array of key => value pairs matching class properties, set them on the called class
      *
      * @param array $properties
@@ -85,21 +80,7 @@ class Immutable implements Hashable
      */
     final public function toArray(): array
     {
-        if (null === $this->reflection) {
-            $this->reflection = new ReflectionObject($this);
-        }
-
-        $thisProperties = $this->reflection->getProperties(
-            ReflectionProperty::IS_PROTECTED | ReflectionProperty::IS_PUBLIC
-        );
-        $properties = [];
-
-        foreach ($thisProperties as $property) {
-            $property->setAccessible(true);
-            $properties[$property->name] = $property->getValue($this);
-        }
-
-        return $properties;
+        return get_object_vars($this);
     }
 
     /**

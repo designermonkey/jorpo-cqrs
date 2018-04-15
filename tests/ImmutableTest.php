@@ -62,6 +62,7 @@ class ImmutableTest extends TestCase
             'readOnlyProperty' => 'badger',
             'accessibleProperty' => 'snaaake',
         ];
+
         $this->assertSame($array, $stub->toArray());
     }
 

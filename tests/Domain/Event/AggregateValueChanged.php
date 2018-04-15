@@ -2,9 +2,9 @@
 
 namespace Jorpo\Cqrs\Domain\Event;
 
-use Jorpo\Cqrs\Event\Event;
+use Jorpo\Cqrs\Event\AbstractEvent;
 
-class AggregateValueChanged extends Event
+class AggregateValueChanged extends AbstractEvent
 {
     protected $aggregateId;
     protected $value;

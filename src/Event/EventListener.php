@@ -7,6 +7,7 @@ use BadMethodCallException;
 abstract class EventListener
 {
     const LISTENER_PREFIX = 'on';
+    const CATCHALL_HANDLER = 'onAnyEvent';
 
     /**
      * @return array
@@ -22,7 +23,7 @@ abstract class EventListener
         $handlerMethod = $this->getHandlerMethod($event);
 
         if (!method_exists($this, $handlerMethod)) {
-            $handlerMethod = 'onEvent';
+            $handlerMethod = self::CATCHALL_HANDLER;
 
             if (!method_exists($this, $handlerMethod)) {
                 throw new BadMethodCallException(sprintf(

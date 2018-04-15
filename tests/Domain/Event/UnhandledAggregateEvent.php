@@ -2,8 +2,8 @@
 
 namespace Jorpo\Cqrs\Domain\Event;
 
-use Jorpo\Cqrs\Event\Event;
+use Jorpo\Cqrs\Event\AbstractEvent;
 
-class UnhandledAggregateEvent extends Event
+class UnhandledAggregateEvent extends AbstractEvent
 {
 }
