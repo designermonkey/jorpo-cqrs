@@ -2,7 +2,7 @@
 
 namespace Jorpo\Cqrs\Event;
 
-class FakeEventThree extends AbstractEvent
+class FakeEventThree extends Event
 {
     protected $badger;
     protected $mushroom;

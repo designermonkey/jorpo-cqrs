@@ -11,7 +11,7 @@ class EventTest extends TestCase
         $this->subject = new class([
             'badger' => 'mushroom',
             'mushroom' => 'badger',
-        ]) extends AbstractEvent
+        ]) extends Event
         {
             protected $badger;
             protected $mushroom;
@@ -34,11 +34,5 @@ class EventTest extends TestCase
 
         unset($this->subject->mushroom);
         $this->assertSame('badger', $this->subject->mushroom);
-    }
-
-    public function testShouldProvideEventName()
-    {
-        $this->assertSame(AbstractEvent::class, AbstractEvent::getName());
-        $this->assertSame(DummyEvent::class, DummyEvent::getName());
     }
 }
